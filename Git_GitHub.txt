@@ -1,0 +1,164 @@
+
++=======+
+|  Git   \
++=========+==========
+------------------------------------------------------------------------+
+Configuración inicial de usuario (solo se hace para el primer proyecto) |
+------------------------------------------------------------------------+
+$ git config --global user.email "email"
+$ git config --global user.name "usuario"
+  ej: $ git config --global user.email "albertomaria@gmail.com"
+      $ git config --global user.name "albertoperez"
+
+-------------------------------------------------------+
+Iniciar el seguimiento a un proyecto y hacer respaldos |
+-------------------------------------------------------+
+$ git init                    #INICIO DEL SEGUIMIENTO
+$ git status -s               #MUESTRA EL STATUS
+$ git add archivo.extension   #PASA AL ÁREA DE TRABAJO EL archivo.extension
+$ git add .                   #PASA AL ÁREA DE TRABAJO TODOS LOS ARCHIVOS Y CARPETAS
+$ git commit -m "Etiqueta"    #RESPALDA EL ÁREA DE TRABAJO Y LE PONE LA "Etiqueta"
+$ git commit -am "Etiqueta"   #PASA EL ARCHIVO AL ÁREA DE TRABAJO Y HACE RESPALDO "Etiqueta"
+
+Para nuevos respaldos se repiten los comandos:
+$ git add .
+$ git commit -m "Etiqueta"
+
+----------------------------+
+Administracion de respaldos |
+----------------------------+
+$ git log --oneline                    #MUESTRA LOS RESPALDOS EXISTENTES
+$ git reset --hard CódigoDelCommit     #RESTAURA AL COMMIT CódigoDelCommit
+  #OJO: LOS RESPALDOS POSTERIORES AL COMMIT RESTAURADO SERÁN ELIMINADOS SIN PODER RECUPERARSE
+
+-------------------------------------------------+
+ej: Desarrollo en la Cónsola Git (Git Bash Here) |
+-------------------------------------------------+
+alber@DESKTOP-1DO68U2 MINGW64 ~/Desktop/pruebaGit
+$ git init
+Initialized empty Git repository in C:/Users/alber/Desktop/pruebaGit/.git/
+-------------------------------------------------+
+$ git status -s
+?? Comandos_Git.txt #Los signos ?? indican que el archivo no está siendo seguido
+-------------------------------------------------+
+$ git add Comandos_Git.txt
+-------------------------------------------------+
+$ git status -s
+A  Comandos_Git.txt #La letra A(verde) indica que el archivo está siendo seguido
+-------------------------------------------------+
+$ git commit -m "Respaldo Inicial"
+[master (root-commit) 963232d] Respaldo Inicial
+ 1 file changed, 226 insertions(+)
+ create mode 100644 Comandos_Git.txt
+-------------------------------------------------+
+$ git status -s #Después del commit el status ya no muestra archivos sin respaldar
+-------------------------------------------------+
+$ git log --oneline
+23f5e88 (HEAD -> master) Segundo respaldo
+963232d Respaldo Inicial
+-------------------------------------------------+
+$ git reset --hard 963232d
+HEAD is now at 963232d Respaldo Inicial
+$ git log --oneline
+963232d (HEAD -> master) Respaldo Inicial
+
+-----+
+tags |
+-----+
+$ git tag versión -m "Descripción de la versión" #Crea una versión (tag)
+  #ej: git tag 210225v1.3 -m "Comandos básicos esenciales"
+$ git push --tags #Sube la versión a >GitHub
+
+-----+
+Eliminar un tag
+$ git tag -d referencia de la versión a eliminar
+ej: $ git tag -d 210225v1.1
+
+
++==========+
+|  GitHub   \
++============+============
+------------------+
+Crear repositorio |
+------------------+
+1. Crear un registro en la página 'github.com' 
+2. Pulsar botón verde 'Create repository'
+3. Redactar 'Repository name'y 'Description (optional)'
+4. Pulsar botón verde 'Create repository'
+5. Copiar la opción:
+git remote add origin https://github.com/albertomariaperez/Comandos-Git-GitHub.git
+6. Pegar el texto copiado en la cónsola de Git y pulsar la tecla 'Enter'
+7. copiar de https://github.com la opción: 'git push -u origin main'
+8. Pegar en la cónsola  git la opción 'https://github.com' y pulsar enter
+9. Actualizar la página https://github.com y se debe observar el repositorio subido
+
+----------------+
+Actualizaciones |
+----------------+
+Desde GitHub > Equipo local
+1. Editar los archivos en github.com
+2. En la cónsola git ejecutar la instrucción:
+$ git pull
+----------------+
+Desde Equipo local > GitHub
+1. Se realiza todo el proceso para hacer nuevos commits
+2. En la cónsola git ejecutar la instrucción:
+$ git push -u origin main
+
++==============+
+|  .gitignore   \
++=================+============
++=========+
+|  ramas   \
++===========+============
+
++========================+
+|   Comentarios finales   \
++==========================+============
+
+===============================================================================
+-----------------------------------------+
+Corrección del nombre al hacer un commit |
+-----------------------------------------+
+$ git commit -am "Corrección de heror en nombre de commit"
+[master ad7e537] Corrección de heror en nombre de commit
+ 1 file changed, 31 insertions(+)
+
+alber@DESKTOP-1DO68U2 MINGW64 ~/Desktop/pruebaGit (master)
+$ git log --oneline
+ad7e537 (HEAD -> master) Corrección de heror en nombre de commit
+2c89a60 Modificados archivos de carpetas 2 y 4
+16e0362 Inicio de seguimiento Git
+8c1e7ff Inicio de seguimiento Git
+-----------------------------------------+
+Corrección de heror por error
+Para corregir se abre el editor vim:
+$ git commit -ammend /Abre nueva ventana con el editor:
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Thu Feb 18 23:24:12 2021 +0000
+#
+# On branch master
+# Changes to be committed:
+#       modified:   Git_Tutorial.txt
+
+Escribimos (:i) para empezar a editar
+Borramos:
+Corrección de heror en nombre de commit
+y escribimos:
+Corrección de error en nombre de commit
+
+Damos a tecla (Esc) y escribimos el comando (:wq) para corregir y salir
+
+Verificación:
+[master 75d249f] Corrección de error en nombre de commit
+ Date: Thu Feb 18 23:24:12 2021 +0000
+ 1 file changed, 31 insertions(+)
+
+alber@DESKTOP-1DO68U2 MINGW64 ~/Desktop/pruebaGit (master)
+$ git log --oneline
+75d249f (HEAD -> master) Corrección de error en nombre de commit
+2c89a60 Modificados archivos de carpetas 2 y 4
+16e0362 Inicio de seguimiento Git
+8c1e7ff Inicio de seguimiento Git
