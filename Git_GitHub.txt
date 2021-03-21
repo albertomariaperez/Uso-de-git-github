@@ -1,7 +1,6 @@
-
 +=======+
 |  Git   \
-+=========+==========
++=================
 ------------------------------------------------------------------------+
 Configuración inicial de usuario (solo se hace para el primer proyecto) |
 ------------------------------------------------------------------------+
@@ -9,75 +8,108 @@ $ git config --global user.email "email"
 $ git config --global user.name "usuario"
   ej: $ git config --global user.email "albertomaria@gmail.com"
       $ git config --global user.name "albertoperez"
+··································································
+$ git help     #MUESTRA AYUDA DE LOS COMANDOS Git
+$ git status   #MUESTRA AYUDA DEL COMANDO status (EN EL NAVEGADOR)
+··································································
+Áreas de trabajo:
+Workong área
+Staging área (add)
+Repositorio (commit)
 
 -------------------------------------------------------+
 Iniciar el seguimiento a un proyecto y hacer respaldos |
 -------------------------------------------------------+
 $ git init                    #INICIO DEL SEGUIMIENTO
+$ git status                  #MUESTRA EL STATUS
 $ git status -s               #MUESTRA EL STATUS
 $ git add archivo.extension   #PASA AL ÁREA DE TRABAJO EL archivo.extension
 $ git add .                   #PASA AL ÁREA DE TRABAJO TODOS LOS ARCHIVOS Y CARPETAS
 $ git commit -m "Etiqueta"    #RESPALDA EL ÁREA DE TRABAJO Y LE PONE LA "Etiqueta"
 $ git commit -am "Etiqueta"   #PASA EL ARCHIVO AL ÁREA DE TRABAJO Y HACE RESPALDO "Etiqueta"
-
+··············································
 Para nuevos respaldos se repiten los comandos:
 $ git add .
 $ git commit -m "Etiqueta"
 
 ----------------------------+
-Administracion de respaldos |
+Administración de respaldos |
 ----------------------------+
 $ git log --oneline                    #MUESTRA LOS RESPALDOS EXISTENTES
-$ git reset --hard CódigoDelCommit     #RESTAURA AL COMMIT CódigoDelCommit
-  #OJO: LOS RESPALDOS POSTERIORES AL COMMIT RESTAURADO SERÁN ELIMINADOS SIN PODER RECUPERARSE
+$ git reset --soft 7142213             #BORRA LOS COMMITS POSTERIORES AL COMMIT 7142213 PERO MANTIENE EL PROYECTO COMO ESTÁ EN EL NIVEL ACTUAL
+$ git reset --hard 7142213             #RESTAURA AL COMMIT 7142213 BORRANDO LOS RESPALDOS POSTERIORES AL COMMIT 7142213 Y TODOS LOS CAMBIOS ACTUALES
+························································
+Revisión del proyecto en el estado de commits anteriores. Nos permite ver como estaba el proyecto en cualquier commit anterior sin borrar ningún commit
+$ git checkout 69f65c4   #SITUA EL PROYECTO EN EL COMMIT 69f65c4 
+$ git checkout master    #SITUA EL PROYECTO AL ÚLTIMO COMMIT 
 
--------------------------------------------------+
-ej: Desarrollo en la Cónsola Git (Git Bash Here) |
--------------------------------------------------+
-alber@DESKTOP-1DO68U2 MINGW64 ~/Desktop/pruebaGit
-$ git init
-Initialized empty Git repository in C:/Users/alber/Desktop/pruebaGit/.git/
--------------------------------------------------+
-$ git status -s
-?? Comandos_Git.txt #Los signos ?? indican que el archivo no está siendo seguido
--------------------------------------------------+
-$ git add Comandos_Git.txt
--------------------------------------------------+
-$ git status -s
-A  Comandos_Git.txt #La letra A(verde) indica que el archivo está siendo seguido
--------------------------------------------------+
-$ git commit -m "Respaldo Inicial"
-[master (root-commit) 963232d] Respaldo Inicial
- 1 file changed, 226 insertions(+)
- create mode 100644 Comandos_Git.txt
--------------------------------------------------+
-$ git status -s #Después del commit el status ya no muestra archivos sin respaldar
--------------------------------------------------+
-$ git log --oneline
-23f5e88 (HEAD -> master) Segundo respaldo
-963232d Respaldo Inicial
--------------------------------------------------+
-$ git reset --hard 963232d
-HEAD is now at 963232d Respaldo Inicial
-$ git log --oneline
-963232d (HEAD -> master) Respaldo Inicial
++=============================================+
+|  Ignorar archivos y/o carpetas (.gitignore)  \
++===============================================+=======
+$ git check-ignore *   #LISTA LOS ARCHIVOS IGNORADOS
+Creación del archivo .gitignore (tiene que estar en el directorio raíz)
+Se crea con cualquier editor de texto y especifica los archivos y carpetas que serán ignorados
+Ejemplo de contenido de un archivo .gitignore:
+leeme.txt   #IGNORA EN TODAS LAS CARPETAS TODOS LOS ARCHIVOS QUE SE LLAMEN leeme.txt
+/soporte/   #IGNORA LA CARPETA soporte Y TODOS LOS ARCHIVOS QUE CONTENGA
+*.txt       #IGNORA TODOS LOS ARCHIVOS QUE TENGAN LA EXTENSIÓN ,txt
 
------+
-tags |
------+
-$ git tag versión -m "Descripción de la versión" #Crea una versión (tag)
-  #ej: git tag 210225v1.3 -m "Comandos básicos esenciales"
-$ git push --tags #Sube la versión a >GitHub
++==================+
+|  Ramas (branch)   \
++============================
+Conceptos: master y head:
+master: #ES LA RAMA INICIAL DE TRABAJO ASIGNADA AL proyecto
+head:   #ES EL PUNTO DEL PROYECTO EN EL QUE ESTAMOS SITUADOS
 
------+
-Eliminar un tag
-$ git tag -d referencia de la versión a eliminar
-ej: $ git tag -d 210225v1.1
+-------------------------+
+Ver las ramas existentes |
+-------------------------+
+$ git branch #MUESTRA LAS RAMAS EXISTENTES INDICANDO CON UN * LA RAMA ACTUAL DE TRABAJO
 
+---------------+
+Crear una rama |
+---------------+
+$ git branch Prueba_de_código #CREA LA RAMA Prueba_de_código
 
+--------------------+
+Moverse entre ramas |
+--------------------+
+$ git checkout Prueba_de_código #CAMBIA EL PROYECTO A LA RAMA Prueba_de_código
+NOTA: Este cambio solo aparecerá en la rama Prueba_de_código
+$ git checkout -b Nueva_Rama   #CREA LA RAMA Nueva_Rama Y SE SITÚA EN ELLA
+
+-----------+
+Unir ramas |
+-----------+
+Para unir la rama master con la rama Prueba_de_código nos situamos primero en la rama que va a absorber a la otra
+$ git checkout master
+$ git merge Prueba_de_código #FUSIONA LAS RAMAS master Y Prueba_de_código
+
+---------------+
+Eliminar ramas |
+---------------+
+$ git branch -d Prueba_de_código #BORRA LA RAMA Prueba_de_código
+______________________
++====================+
+|  Etiquetas (tags)   \
++==============================
+Se utilizan para respaldar versiones funcionales del proyecto.
+
+------------------+
+Crear una versión |
+------------------+
+$ git tag 210225v1.3 -m "Comandos básicos esenciales"   #CREA LA VERSIÓN 210225v1.3 Y LA DESCRIBE CON LA ETIQUETA Comandos básicos esenciales
+$ git push --tags    #SUBE LA VERSIÓN A Github
+
+---------------------+
+Eliminar una versión |
+---------------------+
+$ git tag -d 210225v1.1   #ELIMINA LA VERSIÓN 210225v1.1
+
+________________________________________________________
 +==========+
 |  GitHub   \
-+============+============
++====================
 ------------------+
 Crear repositorio |
 ------------------+
@@ -105,60 +137,7 @@ Desde Equipo local > GitHub
 2. En la cónsola git ejecutar la instrucción:
 $ git push -u origin main
 
-+==============+
-|  .gitignore   \
-+=================+============
-+=========+
-|  ramas   \
-+===========+============
-
+__________________________
 +========================+
 |   Comentarios finales   \
-+==========================+============
-
-===============================================================================
------------------------------------------+
-Corrección del nombre al hacer un commit |
------------------------------------------+
-$ git commit -am "Corrección de heror en nombre de commit"
-[master ad7e537] Corrección de heror en nombre de commit
- 1 file changed, 31 insertions(+)
-
-alber@DESKTOP-1DO68U2 MINGW64 ~/Desktop/pruebaGit (master)
-$ git log --oneline
-ad7e537 (HEAD -> master) Corrección de heror en nombre de commit
-2c89a60 Modificados archivos de carpetas 2 y 4
-16e0362 Inicio de seguimiento Git
-8c1e7ff Inicio de seguimiento Git
------------------------------------------+
-Corrección de heror por error
-Para corregir se abre el editor vim:
-$ git commit -ammend /Abre nueva ventana con el editor:
-# Please enter the commit message for your changes. Lines starting
-# with '#' will be ignored, and an empty message aborts the commit.
-#
-# Date:      Thu Feb 18 23:24:12 2021 +0000
-#
-# On branch master
-# Changes to be committed:
-#       modified:   Git_Tutorial.txt
-
-Escribimos (:i) para empezar a editar
-Borramos:
-Corrección de heror en nombre de commit
-y escribimos:
-Corrección de error en nombre de commit
-
-Damos a tecla (Esc) y escribimos el comando (:wq) para corregir y salir
-
-Verificación:
-[master 75d249f] Corrección de error en nombre de commit
- Date: Thu Feb 18 23:24:12 2021 +0000
- 1 file changed, 31 insertions(+)
-
-alber@DESKTOP-1DO68U2 MINGW64 ~/Desktop/pruebaGit (master)
-$ git log --oneline
-75d249f (HEAD -> master) Corrección de error en nombre de commit
-2c89a60 Modificados archivos de carpetas 2 y 4
-16e0362 Inicio de seguimiento Git
-8c1e7ff Inicio de seguimiento Git
++==================================
