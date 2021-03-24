@@ -11,6 +11,7 @@ $ git config --global user.name "usuario"
 ··································································
 $ git help     #MUESTRA AYUDA DE LOS COMANDOS Git
 $ git status   #MUESTRA AYUDA DEL COMANDO status (EN EL NAVEGADOR)
+$ pwd          #MUESTRA EL DIRECTORIO DE TRABAJO ACTUAL
 ··································································
 Áreas de trabajo:
 Workong área
@@ -95,9 +96,9 @@ ______________________
 +==============================
 Se utilizan para respaldar versiones funcionales del proyecto.
 
-------------------+
-Crear una versión |
-------------------+
+------------------------+
+Crear una versión (tag) |
+------------------------+
 $ git tag 210225v1.3 -m "Comandos básicos esenciales"   #CREA LA VERSIÓN 210225v1.3 Y LA DESCRIBE CON LA ETIQUETA Comandos básicos esenciales
 $ git push --tags    #SUBE LA VERSIÓN A Github
 
@@ -106,23 +107,31 @@ Eliminar una versión |
 ---------------------+
 $ git tag -d 210225v1.1   #ELIMINA LA VERSIÓN 210225v1.1
 
+
 ________________________________________________________
-+==========+
+========================================================
 |  GitHub   \
 +====================
 ------------------+
 Crear repositorio |
 ------------------+
-1. Crear un registro en la página 'github.com' 
+EN REMOTO (github.com)
+······················
+1. Crear un registro en la página 'github.com' #Se hace solo cuando se crea el primer repositorio
 2. Pulsar botón verde 'Create repository'
 3. Redactar 'Repository name'y 'Description (optional)'
 4. Pulsar botón verde 'Create repository'
-5. Copiar la opción:
-git remote add origin https://github.com/albertomariaperez/Comandos-Git-GitHub.git
-6. Pegar el texto copiado en la cónsola de Git y pulsar la tecla 'Enter'
-7. copiar de https://github.com la opción: 'git push -u origin main'
-8. Pegar en la cónsola  git la opción 'https://github.com' y pulsar enter
-9. Actualizar la página https://github.com y se debe observar el repositorio subido
+5. copiar la dirección que aparece en la barra de direcciones: (ej) https://github.com/albertomariaperez/Lectura.git
+
+EN TERMINAL
+···········
+Pegar la dirección despues del comando: $ git remote add origin
+$ git remote add origin https://github.com/albertomariaperez/Lectura.git
+$ git push -u origin master
+
+EN REMOTO (github.com)
+······················
+6. Actualizar la página https://github.com y se debe observar el repositorio subido
 
 ----------------+
 Actualizaciones |
